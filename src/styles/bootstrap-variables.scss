@@ -1,0 +1,104 @@
+//@import '../color';
+
+
+$font-family-base: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+
+$body-bg: #F8F8F8;
+$body-color: #1D1D1F; // also font color
+
+
+// BTNS
+$btn-padding-y:               .7rem;
+$btn-padding-x:               1.4rem;
+$input-btn-border-width:      2px;
+$btn-font-weight:            700;
+
+
+
+// Navbar
+$navbar-dark-color:         rgba(#fff, .7);
+$navbar-dark-hover-color:   rgba(#fff, .9);
+$navbar-nav-link-padding-x: 1rem;
+
+// Modal
+$modal-content-bg:     #2a333f;
+$modal-backdrop-opacity: .75;
+$modal-md:               600px;
+$modal-transition:       transform 150ms ease-out;
+
+// Headings
+$headings-font-weight: 500;
+
+// Fonts
+$font-weight-light:  200;
+$font-weight-normal: 400;
+$font-weight-bold:   700;
+$line-height-base:   1.4;
+$font-size-base:     1rem;
+$font-size-lg:       $font-size-base * 1.2;
+$font-size-sm:       $font-size-base * .8;
+
+
+$font-weight-light:  200;
+$font-weight-normal: 400;
+$font-weight-bold:   700;
+$line-height-base:   1.4;
+$font-size-base:     1rem;
+$font-size-lg:       $font-size-base * 1.2;
+$font-size-sm:       $font-size-base * .8;
+
+$dark: #505c6d;
+$light: #E1E1E1;
+$active: #EB8765;
+$danger: #E65E6D;
+$primary: #179aaa;
+$primary-light: #00B7C3;
+$primary-lighter: #D6EDF1;
+$info: #76dcf2;
+
+
+// Colors
+$theme-colors: (
+        'dark': #505c6d,
+        'light': #E1E1E1,
+        'active': #EB8765,
+        'danger': #E65E6D,
+
+        'primary': #179aaa ,
+        'primary-light': #00B7C3,
+        'primary-lighter': #D6EDF1,
+        'info': #76dcf2
+);
+
+// Grid
+$grid-breakpoints: ( // Unchanged
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px
+);
+
+
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+
+$sizes: map-merge(
+
+                (
+                        5: 5%,
+                        10: 10%,
+                        20: 20%,
+                        25: 25%,
+                        30: 30%,
+                        40: 40%,
+                        50: 50%,
+                        60: 60%,
+                        75: 75%,
+                        80: 80%,
+                        100: 100%,
+                        auto: auto
+                ),
+                $sizes
+);

@@ -2,26 +2,25 @@
  * Created by @author @ddennis - ddennis.dk aka fantastisk.dk/works aka meresukker.dk on 28-12-2019.
  */
 
-import React from "react";
-import enviroment from '../enviroment'
 
-export const getUsers = (query:string) => {
+export const getData = (path:string, query:string) => {
 
-	const url:string = enviroment.SEARCH_USERS + query;
+	const url:string = path + query;
 	return fetch(url, {
 		method: 'GET',
 		headers: {
-			Accept: 'application/json',
+			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		}
 	})
 		.then( (res) => {
 
 			if (res.status !== 200){
-				return Promise.reject(res);
+				//return Promise.reject(res);
 			}
 
-			return Promise.resolve(res.json())
+			return res.json()
+			//return Promise.resolve(res.json())
 
 		})
 		.then(res => res)

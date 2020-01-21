@@ -1,7 +1,7 @@
 //@import '../color';
 
 
-$font-family-base: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+$font-family-base: 'Roboto', sans-serif;
 
 $body-bg: #F8F8F8;
 $body-color: #1D1D1F; // also font color
@@ -64,9 +64,7 @@ $theme-colors: (
         'active': #EB8765,
         'danger': #E65E6D,
 
-        'primary': #179aaa ,
-        'primary-light': #00B7C3,
-        'primary-lighter': #D6EDF1,
+        'primary': #1737d6 ,
         'info': #76dcf2
 );
 

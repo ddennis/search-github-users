@@ -1,49 +1,70 @@
-import React, {ReactChildren, ReactNode, useEffect, useState} from "react";
-import {getUsers} from "../service/API";
+import React, { useEffect, useState} from "react";
+import {getData} from "../service/API";
 import {githubResponse, userItems} from "../types/github-response-model";
 
 
-export type stateProps = {
+export type FetchResponse = {
 	isLoading:boolean;
-	data:{items:Array<userItems>};
+	data:any;
 	error:string;
 }
 
-type Props ={
+type Props = {
 	query?:string;
+	params?:string;
+	endpoint:string
 	children?: any;
 }
 
 
 
-const FetchData: React.FC<Props> = (props) => {
 
-	const query: string = props.query || "";
-	const [state, setData] = useState<stateProps>( {isLoading: true, data: {items: []}, error: ""} );
+const ErrorView: React.FC<{message:string}> = ({message}) => {
+  return (
+  	<div className="h-100 p-5">
+		<h1>FetchData</h1>
+		<p>{message}</p>
+	</div>
+
+  );
+};
+
+
+
+
+
+const FetchData: React.FC<Props> = React.memo( ({query = "", endpoint, params = "",  children}) => {
+
+	const [state, setState] = useState<FetchResponse>( {isLoading: true, data: undefined, error: ""} );
 
 	useEffect(() => {
 
-		setData( {...state, isLoading: true} );
+		setState( {...state, isLoading: true} );
 
 			if (query === ""){
 				return
 			}
 
-			getUsers(query)
-				.then((res:githubResponse ) => {
-					setData({isLoading:false, data:res, error:""})
+			getData(endpoint, query + params)
+				.then((res ) => {
+					console.log (" FetchData > loading = " );
+
+					if(res.message ){
+						setState({isLoading:false, data:undefined, error:res.message})
+					}else{
+						setState({isLoading:false, data:res, error:""})
+					}
 
 				}).catch((error) => {
 					console.log (" FetchData > error = " , error);
-					setData({isLoading:false, data:{items:[]}, error:"We are sorry, but things did not go as expected"})
+					setState({isLoading:false, data:undefined, error:"We are sorry, but things did not go as expected"})
 			})
 		}, [query]
 	);
 
-	return props.children(state)
-	//return  state.data === null ? <Spinner></Spinner> : props!.children(state)
-	//return  state.data === null ? <Spinner show={state.isLoading} error={state.error} ></Spinner> : props.children(state)
-};
+	return state.error !== "" ? <ErrorView message={state.error}/> : children(state)
+
+});
 
 export default FetchData
 

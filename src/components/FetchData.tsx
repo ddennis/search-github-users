@@ -1,7 +1,6 @@
 import React, { useEffect, useState} from "react";
 import {getData} from "../service/API";
-import {githubResponse, userItems} from "../types/github-response-model";
-
+import {githubResponse} from "../types/github-response-model";
 
 export type FetchResponse = {
 	isLoading:boolean;
@@ -17,12 +16,10 @@ type Props = {
 }
 
 
-
-
 const ErrorView: React.FC<{message:string}> = ({message}) => {
   return (
   	<div className="h-100 p-5">
-		<h1>FetchData</h1>
+		<h1>Fetch Error </h1>
 		<p>{message}</p>
 	</div>
 
@@ -41,9 +38,8 @@ const FetchData: React.FC<Props> = React.memo( ({query = "", endpoint, params = 
 
 		setState( {...state, isLoading: true} );
 
-			if (query === ""){
-				return
-			}
+			// Don
+			if (query === "") return
 
 			getData(endpoint, query + params)
 				.then((res ) => {

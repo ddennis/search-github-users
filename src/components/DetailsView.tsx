@@ -2,12 +2,13 @@ import React, {useState} from "react";
 import {animated, useTransition} from 'react-spring'
 import FetchData, {FetchResponse} from "./FetchData";
 import enviroment from "../enviroment";
-import {userItems} from "../types/github-response-model";
+
+import {GithubProfile, GithubUser} from "../types/github-response-model";
 import {get} from 'lodash'
 import {ReactComponent as CloseIcon} from '../assets/svg/close.svg'
 
 type Props = {
-	userId: string;
+	userData: GithubUser ;
 	closeFunc:Function;
 }
 
@@ -46,8 +47,11 @@ const resObj = {
 }
 
 
-const DetailsView: React.FC<Props> = ({closeFunc, userId}) => {
+const DetailsView: React.FC<Props> = ({closeFunc, userData}) => {
 
+
+	const {url} = userData
+	//console.log (" DetailsView > userData = " , userData.url);
 
 	const closeDetails = () => {
 		closeFunc()
@@ -76,28 +80,23 @@ const DetailsView: React.FC<Props> = ({closeFunc, userId}) => {
 									</div>
 								</div>
 
-								{/*<FetchData endpoint={enviroment.USER_DETAILS} query={userId}>
+								<FetchData endpoint={userData.url} query={" "}>
 									{
-										(userInfo: FetchResponse) => {
+										(profileResponse: FetchResponse) => {
 
-											console.log (" DetailsView > userInfo = " , userInfo);
-
+											const profile: GithubProfile = profileResponse.data;
+											console.log (" DetailsView > userInfo = " , profile);
 
 											return (
-
 
 												<div className="row" style={{}}>
 
 													<div className="col-12">
-
 														<div className="row" style={{}}>
 															<div className="col">
-																<h1>{userId}</h1>
+
 															</div>
 														</div>
-
-
-
 													</div>
 
 													<div className="col-6">
@@ -107,7 +106,7 @@ const DetailsView: React.FC<Props> = ({closeFunc, userId}) => {
 											)
 										}
 									}
-								</FetchData>*/}
+								</FetchData>
 							</div>
 
 		</div>

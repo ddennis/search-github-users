@@ -2,56 +2,68 @@ import React from "react";
 import FetchData, {FetchResponse} from "./FetchData";
 import enviroment from "../enviroment";
 import UserListItem from "./UserListItem";
-//import get from "lodash";
-import {githubResponse, userItems} from "../types/github-response-model";
+import { useTransition , animated, useSpring } from 'react-spring';
+import {githubResponse, GithubUser} from "../types/github-response-model";
 
 import {get} from 'lodash'
-import { animated } from "react-spring";
 
 type Props = {
 	query:string;
 	selectUser:Function;
-
+	users:Array<GithubUser>;
+	totalCount:number;
 }
 
-const UserList: React.FC<Props> = ({query, selectUser}) => {
+const UserList: React.FC<Props> = ({users, query, selectUser, totalCount}) => {
 
 
 	//const [items, set] = useState([...])
+	const transitions = useTransition( users, item => item.id, {
+		from: {opacity: 0, transform: 'translate3d(0,40px,0)'},
+		enter: {opacity: 1, transform: 'translate3d(0,0px,0)'},
+		leave: {opacity: 0, transform: 'translate3d(0,40px,0)'},
+		trail: 25
+	} );
+
+	const aniProps = useSpring({opacity: users.length === 0 ? 0 : 1, reset:true})
 
 	return (
 
-	  <FetchData endpoint={enviroment.SEARCH_USERS} query={query}>
-		  {
-			  (fetchState: FetchResponse) => {
+		<div className="row">
 
-				  const users:Array<userItems> = get(fetchState, "data.items", [])
-				  const transitions = useTransition(users, item => item.key, {
-					  from: { transform: 'translate3d(0,-40px,0)' },
-					  enter: { transform: 'translate3d(0,0px,0)' },
-					  leave: { transform: 'translate3d(0,-40px,0)' },
-				  })
+			<animated.div className="col-12 text-center" style={aniProps} >
+				<h5>Found {totalCount} results for <b>{query}</b></h5>
+			</animated.div>
 
-				  transitions.map(({ item, props, key }) =>{
+			{
+				transitions.map(({ item, props, key }) => {
+					return (
+						<animated.div className="col-6 col-md-4 col-lg-3 pointer mt-4 mb-4 " key={key} style={props}>
+							<UserListItem
+								key={item.id}
+								selectUserFunc={selectUser}
+								userData={item}
+							></UserListItem>
+						</animated.div>
+					)
 
-				  	console.log (" UserList > item = " , item);
-
-						  return (
-							  <animated.div key={key} style={props}>
-								  <UserListItem
-									  selectUser={selectUser}
-									  key={item.id}
-									  avatar_url={item.avatar_url}
-									  login={item.login}
-								  ></UserListItem>
-							  </animated.div>
-						  )
-					  }
-
-				  )
+				})
+			}
 
 
-				  /*return (
+
+		</div>
+	)
+
+
+
+
+};
+
+export default UserList
+
+
+/*return (
 					  <div className="row " style={{}}>
 						  {
 							  users.map( (item) => {
@@ -66,10 +78,3 @@ const UserList: React.FC<Props> = ({query, selectUser}) => {
 						  }
 					  </div>
 				  )*/
-			  }
-		  }
-	  </FetchData>
-  );
-};
-
-export default UserList

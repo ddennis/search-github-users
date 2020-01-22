@@ -12,7 +12,7 @@ const UserListItem: React.FC<Props> = ({selectUserFunc, userData}) => {
 
 	const itemClick = () => {
 		selectUserFunc( userData )
-	}
+	};
 
 	return (
 		<div onClick={itemClick}>
@@ -26,8 +26,7 @@ const UserListItem: React.FC<Props> = ({selectUserFunc, userData}) => {
 					<img className="rounded-circle img-fluid" src={avatar_url} alt=""/>
 				</div>
 
-				<div className="mt-3 mt-md-4 mb-0 w-100 text-center">
-
+				<div className="mt-3 mt-md-4 mb-0 mb-md-3 w-100 text-center">
 					<p className="mb-0">Github Score</p>
 					<p className="font-weight-bold">{score}</p>
 				</div>

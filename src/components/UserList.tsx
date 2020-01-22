@@ -1,11 +1,8 @@
 import React from "react";
-import FetchData, {FetchResponse} from "./FetchData";
-import enviroment from "../enviroment";
 import UserListItem from "./UserListItem";
 import { useTransition , animated, useSpring } from 'react-spring';
-import {githubResponse, GithubUser} from "../types/github-response-model";
+import {GithubUser} from "../types/github-response-model";
 
-import {get} from 'lodash'
 
 type Props = {
 	query:string;
@@ -16,10 +13,8 @@ type Props = {
 
 const UserList: React.FC<Props> = ({users, query, selectUser, totalCount}) => {
 
-
-	//const [items, set] = useState([...])
 	const transitions = useTransition( users, item => item.id, {
-		from: {opacity: 0, transform: 'translate3d(0,40px,0)'},
+		from: {opacity: 0, transform: 'translate3d(0,100px,0)'},
 		enter: {opacity: 1, transform: 'translate3d(0,0px,0)'},
 		leave: {opacity: 0, transform: 'translate3d(0,40px,0)'},
 		trail: 25
@@ -39,11 +34,7 @@ const UserList: React.FC<Props> = ({users, query, selectUser, totalCount}) => {
 				transitions.map(({ item, props, key }) => {
 					return (
 						<animated.div className="col-6 col-md-4 col-lg-3 pointer mt-4 mb-4 " key={key} style={props}>
-							<UserListItem
-								key={item.id}
-								selectUserFunc={selectUser}
-								userData={item}
-							></UserListItem>
+							<UserListItem key={item.id}	selectUserFunc={selectUser}	userData={item}	/>
 						</animated.div>
 					)
 

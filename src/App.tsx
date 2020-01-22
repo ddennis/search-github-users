@@ -44,7 +44,7 @@ const App: React.FC = () => {
 
 	    <>
 
-			{/* The details view - which is placed on top for being able to animate it*/}
+			{/* The details view - which is placed on top for easy animation*/}
 			<animated.div className="position-relative" style={{zIndex: 500, ...props}}>
 			 	{userData && <DetailsView userData={userData} closeFunc={closeDetails}></DetailsView>}
 			</animated.div>

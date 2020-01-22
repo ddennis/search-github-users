@@ -9,9 +9,6 @@ type Props = {
 const Spinner: React.FC<Props> = (props) => {
 
 	const {error} = props;
-
-	console.log (" Spinner > error = " , error);
-
 	const statusTxt = !error ? "Getting energy data..." : error;
 
 	return (

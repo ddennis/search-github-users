@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import FetchData, {FetchResponse} from "./FetchData";
 import {GithubProfile, GithubUser} from "../types/github-response-model";
 import {get} from 'lodash'
 import {ReactComponent as CloseIcon} from '../assets/svg/close.svg'
-import RepoList from "./RepoList";
 import Profile from "./Profile";
 
 type Props = {
@@ -13,11 +12,9 @@ type Props = {
 
 const DetailsView: React.FC<Props> = ({closeFunc, userData}) => {
 
-
 	const closeDetails = () => {
 		closeFunc()
 	};
-
 
 	return (
 
@@ -30,26 +27,18 @@ const DetailsView: React.FC<Props> = ({closeFunc, userData}) => {
 			</div>
 
 			<div className="container-fluid h-100">
-
 				<FetchData endpoint={userData.url} query={" "}>
 					{
 						(profileResponse: FetchResponse) => {
 
 							const profile: GithubProfile = get( profileResponse, "data", [] );
-
 							return (
-
-
-									<Profile profileData={profile}></Profile>
-
-
-
+								<Profile profileData={profile}></Profile>
 							)
 						}
 					}
 				</FetchData>
 			</div>
-
 		</div>
 
 	)

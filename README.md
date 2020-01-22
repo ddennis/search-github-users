@@ -1,7 +1,7 @@
 ## Search github users
 
-![](./layouts_1.jpg)
-![](./layouts_2.jpg)
+![](./screenshots/layouts_1.jpg)
+![](./screenshots/layouts_2.jpg)
 
 Project was bootstraped using create-react-app with the typescript template.
 

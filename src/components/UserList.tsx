@@ -18,7 +18,7 @@ const UserList: React.FC<Props> = ({users, query, selectUser, totalCount}) => {
 		enter: {opacity: 1, transform: 'translate3d(0,0px,0)'},
 		leave: {opacity: 0, transform: 'translate3d(0,40px,0)'},
 		trail: 25
-	} );
+	});
 
 	const aniProps = useSpring({opacity: users.length === 0 ? 0 : 1, reset:true})
 
@@ -37,35 +37,12 @@ const UserList: React.FC<Props> = ({users, query, selectUser, totalCount}) => {
 							<UserListItem key={item.id}	selectUserFunc={selectUser}	userData={item}	/>
 						</animated.div>
 					)
-
 				})
 			}
-
-
 
 		</div>
 	)
 
-
-
-
 };
 
 export default UserList
-
-
-/*return (
-					  <div className="row " style={{}}>
-						  {
-							  users.map( (item) => {
-								  return <UserListItem
-									  selectUser={selectUser}
-									  key={item.id}
-									  avatar_url={item.avatar_url}
-									  login={item.login}
-								  ></UserListItem>
-
-							  } )
-						  }
-					  </div>
-				  )*/

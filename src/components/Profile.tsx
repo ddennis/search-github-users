@@ -64,7 +64,7 @@ const Profile: React.FC<Props> = ({profileData}) => {
 								  <div onClick={loadRepos}
 										 className="pointer mx-auto rounded-pill p-2 w-80 text-center bg-primary"
 										 style={{maxWidth: 400}}>
-									  <h5 className="text-white pt-2">Load repositories list</h5>
+									  <h5 className="text-white pt-2">Show Repositories</h5>
 								  </div>
 							  </div>
 						}

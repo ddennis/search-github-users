@@ -31,14 +31,14 @@ const FetchData: React.FC<Props> = React.memo( ({query = "", endpoint, params = 
 				.then((res ) => {
 
 					if(res.message ){
-						setState({isLoading:false, data:undefined, error:res.message})
+						setState({isLoading:false, data:null, error:res.message})
 					}else{
 						setState({isLoading:false, data:res, error:""})
 					}
 
 
 				}).catch((error) => {
-					setState({isLoading:false, data:undefined, error:"We are sorry, but things did not go as expected"})
+					setState({isLoading:false, data:null, error:"We are sorry, but things did not go as expected"})
 			})
 
 		}, [query]

@@ -12,8 +12,7 @@ npm start
 ````
 
 #### Idea
-Search github users by user name and show the user details and repos.
-Navigating to the details page of a user should be quick not clear the state of the list of users.
+Search github users by username and show the their details and repos.
 I decided to use animation to create a smooth transition between the list of users and the user details
 and keep best pratice by showing spinners everythime we do a fetch for data. 
 
@@ -30,7 +29,7 @@ and keep best pratice by showing spinners everythime we do a fetch for data.
  
   
 #### Todo list - if i have had more time.
-- I have of course tested the app manually, but there might still be bugs.
+- I have tested the app manually, but there might still be bugs.
 - write tests
 - implemented pagination
 - better animation 

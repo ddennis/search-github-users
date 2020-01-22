@@ -1,113 +1,99 @@
 import React, {useState} from "react";
-import {animated, useTransition} from 'react-spring'
 import FetchData, {FetchResponse} from "./FetchData";
-import enviroment from "../enviroment";
-
 import {GithubProfile, GithubUser} from "../types/github-response-model";
 import {get} from 'lodash'
 import {ReactComponent as CloseIcon} from '../assets/svg/close.svg'
+import RepoList from "./RepoList";
 
 type Props = {
-	userData: GithubUser ;
-	closeFunc:Function;
+	userData: GithubUser;
+	closeFunc: Function;
 }
-
-const resObj = {
-	login: "ddennis",
-	id: 300269,
-	node_id: "MDQ6VXNlcjMwMDI2OQ==",
-	avatar_url: "https://avatars1.githubusercontent.com/u/300269?v=4",
-	gravatar_id: "",
-	url: "https://api.github.com/users/ddennis",
-	html_url: "https://github.com/ddennis",
-	followers_url: "https://api.github.com/users/ddennis/followers",
-	following_url: "https://api.github.com/users/ddennis/following{/other_user}",
-	gists_url: "https://api.github.com/users/ddennis/gists{/gist_id}",
-	starred_url: "https://api.github.com/users/ddennis/starred{/owner}{/repo}",
-	subscriptions_url: "https://api.github.com/users/ddennis/subscriptions",
-	organizations_url: "https://api.github.com/users/ddennis/orgs",
-	repos_url: "https://api.github.com/users/ddennis/repos",
-	events_url: "https://api.github.com/users/ddennis/events{/privacy}",
-	received_events_url: "https://api.github.com/users/ddennis/received_events",
-	type: "User",
-	site_admin: false,
-	name: "ddennis - Dennis Christoffersen",
-	company: "ddennis.dk - fantastisk.dk",
-	blog: "ddennis.dk",
-	location: "Copenhagen",
-	email: null,
-	hireable: true,
-	bio: null,
-	public_repos: 34,
-	public_gists: 30,
-	followers: 6,
-	following: 10,
-	created_at: "2010-06-08T20:55:17Z",
-	updated_at: "2020-01-20T15:31:17Z"
-}
-
 
 const DetailsView: React.FC<Props> = ({closeFunc, userData}) => {
 
-
-	const {url} = userData
-	//console.log (" DetailsView > userData = " , userData.url);
+	const [showRepo, setShowRepo] = useState( false );
 
 	const closeDetails = () => {
 		closeFunc()
-	}
+	};
+
+	const loadRepos = () => {
+		setShowRepo( true )
+	};
 
 	return (
 
-		<div className="position-absolute w-100 " style={{minHeight: "110vh", top: 0, left: 0, background: "white"}}>
+		<div className="position-absolute h-100 w-100 " style={{minHeight: "101vh", top: 0, left: 0, background: "white"}}>
 
-			<div className="position-fixed pointer " style={{top:10, right:10, zIndex:501}} onClick={closeDetails}>
-				<div className="rounded-circle text-center pt-3" style={{background:"#d0d0d0", width:60, height:60}}>
+			<div className="position-fixed pointer " style={{top: 10, right: 10, zIndex: 501}} onClick={closeDetails}>
+				<div className="rounded-circle text-center pt-3 bg-primary" style={{width: 58, height: 58}}>
 					<CloseIcon></CloseIcon>
 				</div>
 			</div>
-							<div className="container-fluid h-100" style={{background: "white"}}>
 
-								<div className="row mt-5 " style={{}}>
-									<div className="col-6">
-										<h1>s</h1>
+			<div className="container-fluid h-100">
+
+				<FetchData endpoint={userData.url} query={" "}>
+					{
+						(profileResponse: FetchResponse) => {
+
+							const profile: GithubProfile = get( profileResponse, "data", [] );
+
+							return (
+
+								<div className="row " style={{background: "white"}}>
+									<div className="col-12 mt-5 ">
+										<div className="mb-4 text-center">
+											<h1 className="text-center">{profile.login}</h1>
+											<p className="text-center mb-0">{profile.location}</p>
+										</div>
 									</div>
-								</div>
 
-								<div className="row h-100" >
-									<div className="col">
-										<h1>asdad</h1>
+									<div className="col-12 mt-2 ">
+										<div className="w-100 d-flex justify-content-center">
+											<div className="" style={{width: 250, height: 250}}>
+												<img className="rounded-circle img-fluid" src={profile.avatar_url} alt=""/>
+											</div>
+										</div>
 									</div>
+
+
+									<div className="col-12 mx-auto mt-3 ">
+										<div className="mt-4 mb-3 w-100 d-flex justify-content-center ">
+											<div className="ml-4">
+												<h5 className="text-center mb-0 font-weight-bold">{profile.following}</h5>
+												<p className="text-center">Following</p>
+											</div>
+											<div className="ml-4 mr-4">
+												<h5 className="text-center mb-0 font-weight-bold ">{profile.followers}</h5>
+												<p className="text-center">Followers</p>
+											</div>
+											<div className="mr-4">
+												<h5 className="text-center mb-0 font-weight-bold">{profile.public_repos}</h5>
+												<p className="text-center">Repos</p>
+											</div>
+										</div>
+									</div>
+
+								{!showRepo &&
+									<div className="col-12 col-md-6  mx-auto ">
+										<div onClick={loadRepos}
+											  className="pointer mx-auto rounded-pill p-2 w-80 text-center bg-primary"
+											  style={{maxWidth: 400}}>
+											<h5 className="text-white pt-2">Load repositories list</h5>
+										</div>
+									</div>
+								}
+
+									<RepoList showRepo={showRepo} repos_url={profile.repos_url}></RepoList>
+
 								</div>
-
-								<FetchData endpoint={userData.url} query={" "}>
-									{
-										(profileResponse: FetchResponse) => {
-
-											const profile: GithubProfile = profileResponse.data;
-											console.log (" DetailsView > userInfo = " , profile);
-
-											return (
-
-												<div className="row" style={{}}>
-
-													<div className="col-12">
-														<div className="row" style={{}}>
-															<div className="col">
-
-															</div>
-														</div>
-													</div>
-
-													<div className="col-6">
-
-													</div>
-												</div>
-											)
-										}
-									}
-								</FetchData>
-							</div>
+							)
+						}
+					}
+				</FetchData>
+			</div>
 
 		</div>
 
@@ -116,28 +102,3 @@ const DetailsView: React.FC<Props> = ({closeFunc, userData}) => {
 };
 
 export default DetailsView
-
-/*
-
-{
-	transitions.map( ({item, key, props}) =>
-
-		item && <animated.div className="position-absolute w-100 " style={{height: "80vh", zIndex: 500, top: 0, left: 0, ...props}} key={key}>
-
-			 <div className="container-fluid h-100" style={{background: "white"}}>
-				 <div className="row" style={{}}>
-					 <div className="col-6" style={{background: "red"}}>
-						 <h1>asd</h1>
-					 </div>
-
-					 <div className="col-6">
-						 <div className="pointer text-right p-5" onClick={closeDetails}>X</div>
-					 </div>
-				 </div>
-				 <div className="row" style={{}}>
-
-				 </div>
-			 </div>
-			 ️</animated.div>
-	)
-}*/

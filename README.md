@@ -18,15 +18,14 @@ and keep best pratice by showing spinners everythime we do a fetch for data.
 
 #### Design considerations
 - Avoid the github rate limit and only load the users repos on-demand. 
-- I tried to avoid including to many libraies. Using react-router have been an alternative.  
-- I have tried to keep state to the minimal and as close to the component as possible. Using Redux or a useContext would have been a alternative. But woudl in my opinion only cause bloat.
-- I Abstracted the fetch calls into a single component which could be reused across the application.
-  Showing the benefits of using render-props to create reusable components.
+- I tried to avoid including to many libraies. Using react-router had been obvious an choice for the navigation.  
+- I have tried to keep state to the minimal and as close to the component as possible. Using Redux or a useContext implementation would have been a alternative. But would in my opinion only cause bloat.
+- I abstracted the fetch calls into a single component which could be reused across the application.
+  This shows the benefits of using render-props to create reusable components.
   The FetchData component serves as a data loader, spinner and for displaying errors.
 
 #### Learned in the process
-- I got alot of 303 when exceding the github rate-limit
- 
+- I got alot of 303 when exceding the github rate-limit 
   
 #### Todo list - if i have had more time.
 - I have tested the app manually, but there might still be bugs.
